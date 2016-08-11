@@ -5,7 +5,7 @@ public class RummyTools {
 	public static Boolean isRummySet(List<Card> cards, int n) {
 		Boolean isSetOfNCards = true;
 
-		if(hasSameCard(cards)) {
+		if(hasDuplicates(cards)) {
 			return false;
 		}
 
@@ -31,7 +31,7 @@ public class RummyTools {
 		return isSetOfNCards;
 	}
 
-	public static boolean hasSameCard(List<Card> cards) {
+	public static boolean hasDuplicates(List<Card> cards) {
 
 		for(int i=0;i<cards.size();i++) {
 			Card checkCard = cards.get(i);
@@ -48,7 +48,7 @@ public class RummyTools {
 		Boolean isRun = true;
 		Boolean AceStart = false;
 
-		if(hasSameCard(cards)) {
+		if(hasDuplicates(cards)) {
 			return false;
 		}
 
@@ -96,7 +96,7 @@ public class RummyTools {
 	public static List<Card> getSwapCards(List<Card> cards1, List<Card> cards2) {
 		
 		Set<Card> cardSet1 = new HashSet<>(cards1);
-		Set<Card> cardSet2 = new HashSet<>(cards2);
+		Set<Card> cardSet2 = new HashSet<>(cards2);	
 		
 		cardSet1.removeAll(cardSet2);
 		cardSet1.remove(new Card(Card.Suit.WILDCARD, Card.Face.WILDCARD));
@@ -136,4 +136,41 @@ public class RummyTools {
 		}
 		return minCardsToSwap;
 	 }
+	 
+	 public static List<Card> getSwapCardsForSequenceDuplicate(List<Card> cards) {
+			
+		 List<Card> minCardsToSwap = new ArrayList<>();
+		 List<Card> uniqueCardSet = new ArrayList<>(cards);
+		 if(hasDuplicates(cards)) {
+			 for(int i=0;i<uniqueCardSet.size();i++) {
+				 Card card = uniqueCardSet.get(i);
+				 if(!minCardsToSwap.contains(card) && uniqueCardSet.indexOf(card)!=uniqueCardSet.lastIndexOf(card)) {
+					 minCardsToSwap.add(card);
+					 uniqueCardSet.remove(uniqueCardSet.lastIndexOf(card));
+					 i--;
+				 }
+			 }
+		 }
+		 minCardsToSwap.addAll(getSwapCardsForSequence(uniqueCardSet));
+		 return minCardsToSwap;
+	}
+	 
+	 public static List<Card> getSwapCardsForSetDuplicate(List<Card> cards) {
+			
+		 List<Card> minCardsToSwap = new ArrayList<>();
+		 List<Card> uniqueCardSet = new ArrayList<>(cards);
+		 if(hasDuplicates(cards)) {
+			 for(int i=0;i<uniqueCardSet.size();i++) {
+				 Card card = uniqueCardSet.get(i);
+				 if(!minCardsToSwap.contains(card) && uniqueCardSet.indexOf(card)!=uniqueCardSet.lastIndexOf(card)) {
+					 minCardsToSwap.add(card);
+					 uniqueCardSet.remove(uniqueCardSet.lastIndexOf(card));
+					 i--;
+				 }
+			 }
+		 }
+		 minCardsToSwap.addAll(getSwapCardsForSet(uniqueCardSet));
+		 return minCardsToSwap;
+	}
+	
 }

@@ -19,17 +19,18 @@ public class TestMain {
         List<Card> cards3 = new ArrayList<>();
         cards3.add(new Card(Card.Suit.SPADES, Card.Face.ACE));
         cards3.add(new Card(Card.Suit.SPADES, Card.Face.THREE));
-        cards3.add(new Card(Card.Suit.SPADES, Card.Face.TWO));
+        cards3.add(new Card(Card.Suit.SPADES, Card.Face.ACE));
         cards3.add(new Card(Card.Suit.SPADES, Card.Face.FOUR));
         cards3.add(new Card(Card.Suit.SPADES, Card.Face.FIVE));
-        System.out.println(RummyTools.getSwapCardsForSequence(cards3));
+        System.out.println("SEQUENCE:"+RummyTools.getSwapCardsForSequenceDuplicate(cards3));
         System.out.println(cards);
         System.out.println(cards2);
         System.out.println(cards3);
         List<Card> cards4 = new ArrayList<>();
         cards4.add(new Card(Card.Suit.SPADES, Card.Face.ACE));
         cards4.add(new Card(Card.Suit.DIAMONDS, Card.Face.ACE));
+        cards4.add(new Card(Card.Suit.DIAMONDS, Card.Face.ACE));
         cards4.add(new Card(Card.Suit.HEARTS, Card.Face.THREE));
-        System.out.println(RummyTools.getSwapCardsForSet(cards4));
+        System.out.println(RummyTools.getSwapCardsForSetDuplicate(cards4));
     }
 }
